@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Site Blocked – SaferTab</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .card {
+      text-align: center;
+      max-width: 480px;
+      padding: 48px 40px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      backdrop-filter: blur(12px);
+    }
+
+    .shield {
+      font-size: 72px;
+      margin-bottom: 24px;
+      display: block;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.85; }
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .reason-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .reason-blocklist { background: rgba(239,68,68,0.25); color: #fca5a5; border: 1px solid rgba(239,68,68,0.4); }
+    .reason-adult     { background: rgba(245,158,11,0.25); color: #fcd34d; border: 1px solid rgba(245,158,11,0.4); }
+    .reason-timelimit { background: rgba(99,102,241,0.25); color: #c4b5fd; border: 1px solid rgba(99,102,241,0.4); }
+
+    .blocked-url {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 32px;
+      word-break: break-all;
+      font-family: monospace;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .back-btn:hover { background: rgba(255,255,255,0.18); }
+
+    .footer {
+      margin-top: 36px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="shield" id="emoji">🛡️</span>
+    <h1 id="title">Page Blocked</h1>
+    <p class="subtitle" id="message">This website has been blocked by SaferTab.</p>
+    <div class="reason-badge" id="badge">Blocked</div>
+    <div class="blocked-url" id="blockedUrl"></div>
+    <button class="back-btn" onclick="history.go(-2)">← Go Back</button>
+    <div class="footer">SaferTab • Keeping your family safe online</div>
+  </div>
+
+  <script src="blocked.js"></script>
+</body>
+</html>
