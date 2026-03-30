@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SaferTab</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+<!-- Lock Screen (password gate) -->
+<div id="lockScreen" class="lock-screen hidden">
+  <div class="lock-card">
+    <div class="lock-icon">&#x1f510;</div>
+    <h2>SaferTab</h2>
+    <p>Enter your parent password to access settings.</p>
+    <input type="password" id="passwordInput" placeholder="Password" autocomplete="off" />
+    <button id="unlockBtn" class="btn-primary">Unlock</button>
+    <div id="lockError" class="error-msg hidden">Incorrect password</div>
+  </div>
+</div>
+
+<!-- Main App -->
+<div id="app" class="hidden">
+
+  <!-- Storage Warning Banner -->
+  <div id="storageWarning" class="storage-warning hidden">
+    &#x26a0;&#xfe0f; Storage: <strong id="storagePercent">0%</strong> used &mdash; consider clearing history
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <span class="logo">&#x1f6e1;&#xfe0f;</span>
+      <span class="app-name">SaferTab</span>
+    </div>
+    <div class="header-right">
+      <select id="profileSelector" class="profile-selector"></select>
+      <button id="lockBtn" class="icon-btn" title="Lock">&#x1f512;</button>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <nav class="tabs">
+    <button class="tab active" data-tab="dashboard">&#x1f4ca;</button>
+    <button class="tab" data-tab="history">&#x1f4cb;</button>
+    <button class="tab" data-tab="sites">&#x1f310;</button>
+    <button class="tab" data-tab="schedules">&#x1f4c5;</button>
+    <button class="tab" data-tab="settings">&#x2699;&#xfe0f;</button>
+  </nav>
+
+  <!-- Tab Labels (below icons for clarity) -->
+  <div class="tab-labels">
+    <span>Dashboard</span>
+    <span>History</span>
+    <span>Sites</span>
+    <span>Schedules</span>
+    <span>Settings</span>
+  </div>
+
+  <!-- DASHBOARD -->
+  <section id="tab-dashboard" class="tab-content active">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">&#x23f1;&#xfe0f;</div>
+        <div class="stat-value" id="statMinutes">0</div>
+        <div class="stat-label">Minutes Today</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">&#x1f310;</div>
+        <div class="stat-value" id="statSites">0</div>
+        <div class="stat-label">Sites Visited</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">&#x1f6ab;</div>
+        <div class="stat-value" id="statBlocked">0</div>
+        <div class="stat-label">Sites Blocked</div>
+      </div>
+    </div>
+
+    <div class="usage-section" id="usageSection">
+      <div class="usage-header">
+        <span>Daily Usage</span>
+        <span id="usageLabel">0 / 120 min</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <div class="status-pills">
+      <div class="pill" id="pillAdult">
+        <span>&#x1f51e;</span> Adult
+        <span class="pill-status" id="pillAdultStatus">ON</span>
+      </div>
+      <div class="pill" id="pillLimit">
+        <span>&#x23f0;</span> Limit
+        <span class="pill-status" id="pillLimitStatus">OFF</span>
+      </div>
+      <div class="pill" id="pillMode">
+        <span>&#x1f310;</span> Mode
+        <span class="pill-status" id="pillModeStatus">BLOCK</span>
+      </div>
+    </div>
+
+    <div class="section-title">Recent Activity</div>
+    <ul class="recent-list" id="recentList">
+      <li class="empty-state">No visits recorded yet.</li>
+    </ul>
+  </section>
+
+  <!-- HISTORY -->
+  <section id="tab-history" class="tab-content hidden">
+    <div class="search-row">
+      <input type="text" id="historySearch" placeholder="&#x1f50d;  Search history..." class="search-input" />
+      <button id="exportCsvBtn" class="btn-secondary-sm">&#x1f4e5; Export</button>
+      <button id="clearHistoryBtn" class="btn-danger-sm">Clear All</button>
+    </div>
+    <ul class="log-list" id="historyList">
+      <li class="empty-state">No history yet.</li>
+    </ul>
+  </section>
+
+  <!-- SITES (Blocklist / Allowlist) -->
+  <section id="tab-sites" class="tab-content hidden">
+
+    <!-- Mode indicator -->
+    <div class="mode-indicator" id="modeIndicator">
+      <span id="modeLabel">Blocklist Mode</span>
+    </div>
+
+    <!-- Blocklist Section -->
+    <div id="blocklistSection">
+      <div class="section-title">Add Site to Block</div>
+      <div class="input-row">
+        <input type="text" id="blockInput" placeholder="e.g. tiktok.com" class="text-input" />
+        <button id="addBlockBtn" class="btn-primary-sm">Add</button>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">Import from .txt File</div>
+      <label class="file-label">
+        <input type="file" id="importBlockFile" accept=".txt" />
+        &#x1f4c2; Choose .txt file
+      </label>
+      <div id="importBlockStatus" class="import-status hidden"></div>
+
+      <div class="section-title" style="margin-top:16px">
+        Blocked Sites
+        <span class="count-badge" id="blocklistCount">0</span>
+      </div>
+      <ul class="block-list" id="blocklistItems">
+        <li class="empty-state">No sites blocked yet.</li>
+      </ul>
+    </div>
+
+    <!-- Allowlist Section -->
+    <div id="allowlistSection" class="hidden">
+      <div class="section-title">Add Allowed Site</div>
+      <div class="input-row">
+        <input type="text" id="allowInput" placeholder="e.g. google.com" class="text-input" />
+        <button id="addAllowBtn" class="btn-primary-sm">Add</button>
+      </div>
+
+      <div class="section-title" style="margin-top:16px">Import from .txt File</div>
+      <label class="file-label">
+        <input type="file" id="importAllowFile" accept=".txt" />
+        &#x1f4c2; Choose .txt file
+      </label>
+      <div id="importAllowStatus" class="import-status hidden"></div>
+
+      <div class="section-title" style="margin-top:16px">
+        Allowed Sites
+        <span class="count-badge" id="allowlistCount">0</span>
+      </div>
+      <ul class="block-list" id="allowlistItems">
+        <li class="empty-state">No sites allowed yet. All sites will be blocked.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SCHEDULES -->
+  <section id="tab-schedules" class="tab-content hidden">
+    <div class="section-title">Schedule Rules</div>
+    <p class="tab-desc">Control when specific sites can be accessed.</p>
+
+    <div id="scheduleList" class="schedule-list">
+      <div class="empty-state">No schedules yet.</div>
+    </div>
+
+    <div class="section-title" style="margin-top:16px">Add Schedule</div>
+    <div class="schedule-form">
+      <div class="input-row">
+        <input type="text" id="schedDomain" placeholder="e.g. youtube.com" class="text-input" />
+      </div>
+      <div class="form-label">Days</div>
+      <div class="day-picker" id="dayPicker">
+        <button class="day-pill" data-day="0">S</button>
+        <button class="day-pill" data-day="1">M</button>
+        <button class="day-pill" data-day="2">T</button>
+        <button class="day-pill" data-day="3">W</button>
+        <button class="day-pill" data-day="4">T</button>
+        <button class="day-pill" data-day="5">F</button>
+        <button class="day-pill" data-day="6">S</button>
+      </div>
+      <div class="form-label">Time Window</div>
+      <div class="time-row">
+        <input type="time" id="schedStart" class="time-input" value="15:00" />
+        <span class="time-sep">to</span>
+        <input type="time" id="schedEnd" class="time-input" value="17:00" />
+      </div>
+      <div class="form-label">Action</div>
+      <div class="action-toggle">
+        <label class="radio-label">
+          <input type="radio" name="schedAction" value="allow" checked /> Allow only during window
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="schedAction" value="block" /> Block during window
+        </label>
+      </div>
+      <button id="addScheduleBtn" class="btn-primary" style="width:100%; margin-top:12px">Add Schedule</button>
+    </div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section id="tab-settings" class="tab-content hidden">
+
+    <div class="setting-group">
+      <div class="setting-label">&#x1f310; Browsing Mode</div>
+      <div class="setting-desc">Block specific sites, or allow only approved ones.</div>
+      <div class="mode-toggle">
+        <button class="mode-btn active" data-mode="blocklist">Blocklist</button>
+        <button class="mode-btn" data-mode="allowlist">Allowlist</button>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-label">&#x1f51e; Adult Content Filter</div>
+      <div class="setting-desc">Block websites with adult/explicit content automatically.</div>
+      <label class="toggle">
+        <input type="checkbox" id="adultFilterToggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-label">&#x1f50d; Safe Search</div>
+      <div class="setting-desc">Force safe search on Google, Bing, YouTube, DuckDuckGo.</div>
+      <label class="toggle">
+        <input type="checkbox" id="safeSearchToggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-label">&#x23f0; Daily Time Limit</div>
+      <div class="setting-desc">Block browsing after a daily limit is reached.</div>
+      <label class="toggle">
+        <input type="checkbox" id="limitToggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="limit-row" id="limitRow">
+      <label class="setting-sublabel">Limit (minutes per day)</label>
+      <input type="number" id="limitMinutes" class="number-input" min="5" max="600" value="120" />
+    </div>
+
+    <button id="resetUsageBtn" class="btn-secondary" style="margin-top:8px">
+      &#x1f504; Reset Today's Usage
+    </button>
+
+    <div class="setting-group" style="margin-top:20px">
+      <div class="setting-label">&#x1f510; Parent Password</div>
+      <div class="setting-desc">Protect these settings from kids.</div>
+      <label class="toggle">
+        <input type="checkbox" id="passwordToggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="password-row" id="passwordRow">
+      <input type="password" id="newPassword" class="text-input" placeholder="New password" />
+      <button id="savePasswordBtn" class="btn-primary-sm">Save</button>
+    </div>
+
+    <button id="saveSettingsBtn" class="btn-primary" style="margin-top: 20px; width: 100%">
+      &#x1f4be; Save Settings
+    </button>
+    <div id="settingsSaved" class="success-msg hidden">&#x2705; Settings saved!</div>
+
+    <!-- Profile Management -->
+    <div class="section-title" style="margin-top:24px">&#x1f464; Manage Profiles</div>
+    <div id="profileList" class="profile-list"></div>
+    <div class="input-row" style="margin-top:8px">
+      <input type="text" id="newProfileName" placeholder="New profile name" class="text-input" />
+      <button id="addProfileBtn" class="btn-primary-sm">Create</button>
+    </div>
+  </section>
+
+</div>
+
+<script src="crypto.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

@@ -24,6 +24,20 @@ const configs = {
     badgeClass: 'reason-timelimit',
     badgeText: 'Time Limit',
   },
+  allowlist: {
+    emoji: '🔒',
+    title: 'Site Not Allowed',
+    message: 'This website is not on the approved list. Ask a parent to add it.',
+    badgeClass: 'reason-allowlist',
+    badgeText: 'Not Allowed',
+  },
+  schedule: {
+    emoji: '📅',
+    title: 'Not Available Right Now',
+    message: 'This website is only available during scheduled hours.',
+    badgeClass: 'reason-schedule',
+    badgeText: 'Schedule',
+  },
 };
 
 const cfg = configs[reason] || configs.blocklist;

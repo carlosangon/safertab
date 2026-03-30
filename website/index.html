@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SaferTab - Keep Your Family Safe Online</title>
+  <meta name="description" content="A lightweight Chrome extension that gives parents real control over what their kids see and how long they browse. Free, private, no account needed." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="../extension/icons/icon48.png" type="image/png" />
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <span class="nav-logo">&#x1f6e1;&#xfe0f;</span>
+        <span class="nav-wordmark">SaferTab</span>
+      </a>
+      <button class="hamburger" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#cta" class="nav-cta">Add to Chrome</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero" id="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-content">
+      <h1>Keep Your Family<br />Safe Online</h1>
+      <p class="hero-sub">
+        The lightweight Chrome extension that gives parents real control
+        over what their kids see and how long they browse.
+      </p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn btn-primary-lg">Add to Chrome &mdash; It's Free</a>
+        <a href="#how-it-works" class="btn btn-ghost">See How It Works</a>
+      </div>
+    </div>
+
+    <!-- CSS-only extension mockup -->
+    <div class="container">
+      <div class="mockup" aria-hidden="true">
+        <div class="mockup-bar">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="mockup-body">
+          <div class="mock-header">
+            <span>&#x1f6e1;&#xfe0f; <strong>SaferTab</strong></span>
+            <span class="mock-lock">&#x1f512;</span>
+          </div>
+          <div class="mock-stats">
+            <div class="mock-stat"><span class="mock-stat-val">47</span><span class="mock-stat-lbl">Minutes</span></div>
+            <div class="mock-stat"><span class="mock-stat-val">12</span><span class="mock-stat-lbl">Sites</span></div>
+            <div class="mock-stat"><span class="mock-stat-val">3</span><span class="mock-stat-lbl">Blocked</span></div>
+          </div>
+          <div class="mock-progress">
+            <div class="mock-progress-track"><div class="mock-progress-fill"></div></div>
+            <span class="mock-progress-lbl">47 / 120 min</span>
+          </div>
+          <div class="mock-pills">
+            <span class="mock-pill">&#x1f51e; Adult Filter <b class="on">ON</b></span>
+            <span class="mock-pill">&#x23f0; Time Limit <b class="on">120min</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Trust Bar ── -->
+  <section class="trust-bar">
+    <div class="container trust-items">
+      <div class="trust-item">&#x2705; 100% Free</div>
+      <div class="trust-item">&#x1f6ab; No Account Required</div>
+      <div class="trust-item">&#x1f512; All Data Stays Local</div>
+      <div class="trust-item">&#x26a1; Lightweight &amp; Fast</div>
+    </div>
+  </section>
+
+  <!-- ── Features ── -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-heading">Everything You Need to Protect Your Kids</h2>
+      <p class="section-sub">Powerful parental controls that run silently in the background.</p>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#x1f6ab;</div>
+          <h3>Custom Site Blocklist</h3>
+          <p>Manually block any website or import an entire list from a .txt file in seconds.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#x1f51e;</div>
+          <h3>Adult Content Filter</h3>
+          <p>Automatically detects and blocks known explicit and adult websites before they load.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#x23f1;&#xfe0f;</div>
+          <h3>Daily Time Limits</h3>
+          <p>Set how many minutes per day your child can browse, with a live usage tracker.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#x1f4cb;</div>
+          <h3>Visit History</h3>
+          <p>See every site visited, fully searchable and timestamped for easy review.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#x1f510;</div>
+          <h3>Password-Protected Settings</h3>
+          <p>Lock all settings behind a parent password so kids can't change a thing.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">&#x1f4e6;</div>
+          <h3>No Setup Hassle</h3>
+          <p>Install, configure, done. No accounts, no cloud sync, no complicated dashboards.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── How It Works ── -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2 class="section-heading">Up and Running in Under a Minute</h2>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <h3>Install</h3>
+          <p>Add SaferTab to Chrome with a single click from the Web Store.</p>
+        </div>
+        <div class="step-line" aria-hidden="true"></div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <h3>Configure</h3>
+          <p>Set your blocklist, time limits, and toggle the adult content filter.</p>
+        </div>
+        <div class="step-line" aria-hidden="true"></div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <h3>Relax</h3>
+          <p>SaferTab runs silently in the background, keeping your family safe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Privacy ── -->
+  <section class="privacy" id="privacy">
+    <div class="container">
+      <div class="privacy-card reveal">
+        <h2>Your Privacy Comes First</h2>
+        <p class="privacy-sub">Unlike other parental control tools, SaferTab never sends your data anywhere.</p>
+        <ul class="privacy-list">
+          <li><span class="check">&#x2713;</span> All data stays in your browser &mdash; nothing leaves your device</li>
+          <li><span class="check">&#x2713;</span> No accounts, no sign-ups, no tracking</li>
+          <li><span class="check">&#x2713;</span> No external servers or cloud storage</li>
+          <li><span class="check">&#x2713;</span> Open and transparent &mdash; inspect every line of code</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2 class="section-heading">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Is SaferTab free?</summary>
+          <p>Yes, completely free. No premium tiers, no hidden fees.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Does SaferTab collect my data?</summary>
+          <p>No. Everything is stored locally in your browser using Chrome's built-in storage. Nothing is ever sent to a server.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can my child disable SaferTab?</summary>
+          <p>Not without your parent password. The settings panel is locked behind a password gate, and the extension can only be removed through Chrome's extension manager.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How does the adult content filter work?</summary>
+          <p>SaferTab maintains a curated list of known explicit domains and URL patterns. Any matching site is blocked before it loads.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Does it work on all websites?</summary>
+          <p>SaferTab works on all standard HTTP and HTTPS websites. Internal Chrome pages (like settings or the new tab page) are not affected.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Final CTA ── -->
+  <section class="final-cta" id="cta">
+    <div class="container cta-content">
+      <h2>Ready to Make Browsing Safer?</h2>
+      <p>Set up in under a minute. Free. No account needed.</p>
+      <a href="#" class="btn btn-primary-lg">Add SaferTab to Chrome</a>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">&#x1f6e1;&#xfe0f; SaferTab</div>
+      <p class="footer-tagline">Keeping your family safe online.</p>
+      <p class="footer-copy">&copy; 2026 SaferTab. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
