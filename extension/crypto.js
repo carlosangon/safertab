@@ -60,6 +60,13 @@ async function decryptData(key, encryptedHex) {
   return JSON.parse(new TextDecoder().decode(decrypted));
 }
 
+// ─── Security Question Answer Hashing ─────────────
+
+async function hashAnswer(answer, saltHex) {
+  const normalized = answer.trim().toLowerCase();
+  return hashPassword(normalized, saltHex);
+}
+
 // ─── Log Pruning ──────────────────────────────────
 
 const MAX_LOG_ENTRIES = 2000;

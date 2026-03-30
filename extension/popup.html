@@ -10,12 +10,43 @@
 <!-- Lock Screen (password gate) -->
 <div id="lockScreen" class="lock-screen hidden">
   <div class="lock-card">
-    <div class="lock-icon">&#x1f510;</div>
-    <h2>SaferTab</h2>
-    <p>Enter your parent password to access settings.</p>
-    <input type="password" id="passwordInput" placeholder="Password" autocomplete="off" />
-    <button id="unlockBtn" class="btn-primary">Unlock</button>
-    <div id="lockError" class="error-msg hidden">Incorrect password</div>
+    <!-- Normal unlock -->
+    <div id="lockMain">
+      <div class="lock-icon">&#x1f510;</div>
+      <h2>SaferTab</h2>
+      <p>Enter your parent password to access settings.</p>
+      <input type="password" id="passwordInput" placeholder="Password" autocomplete="off" />
+      <button id="unlockBtn" class="btn-primary">Unlock</button>
+      <div id="lockError" class="error-msg hidden">Incorrect password</div>
+      <button id="forgotPasswordBtn" class="link-btn">Forgot password?</button>
+    </div>
+
+    <!-- Password Recovery via Security Questions -->
+    <div id="recoveryScreen" class="hidden">
+      <div class="lock-icon">&#x1f511;</div>
+      <h2>Reset Password</h2>
+      <p id="recoveryDesc">Answer your security questions to reset your password.</p>
+      <div id="recoveryQuestions">
+        <label id="recoveryQ1Label" class="recovery-label"></label>
+        <input type="text" id="recoveryA1" class="text-input" placeholder="Answer" autocomplete="off" />
+        <label id="recoveryQ2Label" class="recovery-label"></label>
+        <input type="text" id="recoveryA2" class="text-input" placeholder="Answer" autocomplete="off" />
+      </div>
+      <button id="verifyRecoveryBtn" class="btn-primary">Verify Answers</button>
+      <div id="recoveryError" class="error-msg hidden"></div>
+      <button id="backToLoginBtn" class="link-btn">Back to login</button>
+    </div>
+
+    <!-- Set New Password (after successful recovery) -->
+    <div id="resetPasswordScreen" class="hidden">
+      <div class="lock-icon">&#x1f510;</div>
+      <h2>Set New Password</h2>
+      <p>Choose a new parent password.</p>
+      <input type="password" id="resetNewPassword" class="text-input" placeholder="New password" autocomplete="off" />
+      <input type="password" id="resetConfirmPassword" class="text-input" placeholder="Confirm password" autocomplete="off" />
+      <button id="resetPasswordBtn" class="btn-primary">Save New Password</button>
+      <div id="resetError" class="error-msg hidden"></div>
+    </div>
   </div>
 </div>
 
@@ -280,6 +311,41 @@
     <div class="password-row" id="passwordRow">
       <input type="password" id="newPassword" class="text-input" placeholder="New password" />
       <button id="savePasswordBtn" class="btn-primary-sm">Save</button>
+    </div>
+
+    <div class="setting-group" style="margin-top:10px">
+      <div class="setting-label">&#x1f511; Security Questions</div>
+      <div class="setting-desc">Set up security questions to recover your password if you forget it.</div>
+    </div>
+
+    <div id="securityQuestionsSetup" class="security-questions-form">
+      <div class="form-label">Question 1</div>
+      <select id="sq1Select" class="sq-select">
+        <option value="">Choose a question...</option>
+        <option value="1">What is your mother's maiden name?</option>
+        <option value="2">What was the name of your first pet?</option>
+        <option value="3">What city were you born in?</option>
+        <option value="4">What is your favorite book?</option>
+        <option value="5">What was your childhood nickname?</option>
+        <option value="6">What street did you grow up on?</option>
+      </select>
+      <input type="text" id="sq1Answer" class="text-input" placeholder="Answer" autocomplete="off" />
+
+      <div class="form-label" style="margin-top:10px">Question 2</div>
+      <select id="sq2Select" class="sq-select">
+        <option value="">Choose a question...</option>
+        <option value="1">What is your mother's maiden name?</option>
+        <option value="2">What was the name of your first pet?</option>
+        <option value="3">What city were you born in?</option>
+        <option value="4">What is your favorite book?</option>
+        <option value="5">What was your childhood nickname?</option>
+        <option value="6">What street did you grow up on?</option>
+      </select>
+      <input type="text" id="sq2Answer" class="text-input" placeholder="Answer" autocomplete="off" />
+
+      <button id="saveSecurityQuestionsBtn" class="btn-primary" style="width:100%; margin-top:12px">Save Security Questions</button>
+      <div id="sqSaved" class="success-msg hidden"></div>
+      <div id="sqError" class="error-msg hidden"></div>
     </div>
 
     <button id="saveSettingsBtn" class="btn-primary" style="margin-top: 20px; width: 100%">

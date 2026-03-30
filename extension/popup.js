@@ -49,6 +49,17 @@ async function loadData() {
   return data;
 }
 
+// ─── Security Questions Map ─────────────────────────
+
+const SECURITY_QUESTIONS = {
+  '1': 'What is your mother\'s maiden name?',
+  '2': 'What was the name of your first pet?',
+  '3': 'What city were you born in?',
+  '4': 'What is your favorite book?',
+  '5': 'What was your childhood nickname?',
+  '6': 'What street did you grow up on?',
+};
+
 // ─── Lock Screen ───────────────────────────────────
 
 function setupLockScreen() {
@@ -56,6 +67,10 @@ function setupLockScreen() {
     if (e.key === 'Enter') attemptUnlock();
   });
   document.getElementById('unlockBtn').addEventListener('click', attemptUnlock);
+  document.getElementById('forgotPasswordBtn').addEventListener('click', showRecoveryScreen);
+  document.getElementById('backToLoginBtn').addEventListener('click', showLoginScreen);
+  document.getElementById('verifyRecoveryBtn').addEventListener('click', verifyRecoveryAnswers);
+  document.getElementById('resetPasswordBtn').addEventListener('click', resetPasswordFromRecovery);
 }
 
 async function attemptUnlock() {
@@ -72,6 +87,121 @@ async function attemptUnlock() {
     show('lockError');
     document.getElementById('passwordInput').value = '';
   }
+}
+
+// ─── Password Recovery Flow ─────────────────────────
+
+async function showRecoveryScreen() {
+  const { securityQuestions } = await chrome.storage.local.get('securityQuestions');
+
+  if (!securityQuestions || securityQuestions.length < 2) {
+    hide('lockMain');
+    show('recoveryScreen');
+    hide('recoveryQuestions');
+    hide('verifyRecoveryBtn');
+    document.getElementById('recoveryDesc').textContent =
+      'Security questions have not been set up yet. You need to know your current password to set them up in Settings.';
+    document.getElementById('recoveryError').textContent = '';
+    hide('recoveryError');
+    return;
+  }
+
+  hide('lockMain');
+  show('recoveryScreen');
+  show('recoveryQuestions');
+  show('verifyRecoveryBtn');
+  document.getElementById('recoveryDesc').textContent =
+    'Answer your security questions to reset your password.';
+  document.getElementById('recoveryQ1Label').textContent = SECURITY_QUESTIONS[securityQuestions[0].questionId] || 'Question 1';
+  document.getElementById('recoveryQ2Label').textContent = SECURITY_QUESTIONS[securityQuestions[1].questionId] || 'Question 2';
+  document.getElementById('recoveryA1').value = '';
+  document.getElementById('recoveryA2').value = '';
+  hide('recoveryError');
+}
+
+function showLoginScreen() {
+  hide('recoveryScreen');
+  hide('resetPasswordScreen');
+  show('lockMain');
+  document.getElementById('passwordInput').value = '';
+  hide('lockError');
+}
+
+async function verifyRecoveryAnswers() {
+  const { securityQuestions } = await chrome.storage.local.get('securityQuestions');
+  if (!securityQuestions || securityQuestions.length < 2) return;
+
+  const a1 = document.getElementById('recoveryA1').value;
+  const a2 = document.getElementById('recoveryA2').value;
+
+  if (!a1.trim() || !a2.trim()) {
+    document.getElementById('recoveryError').textContent = 'Please answer both questions.';
+    show('recoveryError');
+    return;
+  }
+
+  const hash1 = await hashAnswer(a1, securityQuestions[0].answerSalt);
+  const hash2 = await hashAnswer(a2, securityQuestions[1].answerSalt);
+
+  if (hash1 === securityQuestions[0].answerHash && hash2 === securityQuestions[1].answerHash) {
+    hide('recoveryScreen');
+    show('resetPasswordScreen');
+    document.getElementById('resetNewPassword').value = '';
+    document.getElementById('resetConfirmPassword').value = '';
+    hide('resetError');
+  } else {
+    document.getElementById('recoveryError').textContent = 'One or more answers are incorrect.';
+    show('recoveryError');
+  }
+}
+
+async function resetPasswordFromRecovery() {
+  const newPw = document.getElementById('resetNewPassword').value.trim();
+  const confirmPw = document.getElementById('resetConfirmPassword').value.trim();
+
+  if (!newPw) {
+    document.getElementById('resetError').textContent = 'Please enter a new password.';
+    show('resetError');
+    return;
+  }
+
+  if (newPw.length < 4) {
+    document.getElementById('resetError').textContent = 'Password must be at least 4 characters.';
+    show('resetError');
+    return;
+  }
+
+  if (newPw !== confirmPw) {
+    document.getElementById('resetError').textContent = 'Passwords do not match.';
+    show('resetError');
+    return;
+  }
+
+  // Save new password hash
+  const passwordSalt = generateSalt();
+  const passwordHash = await hashPassword(newPw, passwordSalt);
+  const { cryptoSalt } = await chrome.storage.local.get('cryptoSalt');
+  const newKey = await deriveEncryptionKey(newPw, cryptoSalt);
+
+  // Re-encrypt visit logs with new key
+  // We can't decrypt old logs (don't have old password), so we keep pending logs
+  // and clear the encrypted log that we can't recover
+  const { profiles } = await chrome.storage.local.get('profiles');
+  if (profiles) {
+    for (const id of Object.keys(profiles)) {
+      if (profiles[id].encryptedVisitLog) {
+        // Move any pending entries forward, but encrypted log from old key is lost
+        profiles[id].encryptedVisitLog = null;
+      }
+    }
+    await chrome.storage.local.set({ profiles });
+  }
+
+  await chrome.storage.local.set({ passwordHash, passwordSalt });
+  encryptionKey = newKey;
+
+  // Proceed to unlock
+  await unlockApp();
 }
 
 async function unlockApp() {
@@ -638,6 +768,9 @@ function setupSettings() {
 
   // Profile management
   setupProfileManagement();
+
+  // Security questions
+  setupSecurityQuestions();
 }
 
 function updateSettingsUI() {
@@ -695,6 +828,81 @@ async function setupProfileManagement() {
     await setupProfileManagement();
     await setupProfileSelector();
   });
+}
+
+// ─── Security Questions Setup ───────────────────────
+
+async function setupSecurityQuestions() {
+  const { securityQuestions } = await chrome.storage.local.get('securityQuestions');
+
+  // Show current status
+  const sqSaved = document.getElementById('sqSaved');
+  if (securityQuestions && securityQuestions.length >= 2) {
+    sqSaved.innerHTML = '<span class="sq-badge set">Security questions are set up</span>';
+    show('sqSaved');
+
+    // Pre-select the saved questions (but don't fill answers)
+    document.getElementById('sq1Select').value = securityQuestions[0].questionId;
+    document.getElementById('sq2Select').value = securityQuestions[1].questionId;
+  } else {
+    sqSaved.innerHTML = '<span class="sq-badge not-set">Not set up yet &mdash; you won\'t be able to reset your password</span>';
+    show('sqSaved');
+  }
+
+  document.getElementById('saveSecurityQuestionsBtn').addEventListener('click', saveSecurityQuestions);
+}
+
+async function saveSecurityQuestions() {
+  const q1 = document.getElementById('sq1Select').value;
+  const q2 = document.getElementById('sq2Select').value;
+  const a1 = document.getElementById('sq1Answer').value.trim();
+  const a2 = document.getElementById('sq2Answer').value.trim();
+  const sqError = document.getElementById('sqError');
+  const sqSaved = document.getElementById('sqSaved');
+
+  hide('sqError');
+
+  if (!q1 || !q2) {
+    sqError.textContent = 'Please select both questions.';
+    show('sqError');
+    return;
+  }
+
+  if (q1 === q2) {
+    sqError.textContent = 'Please choose two different questions.';
+    show('sqError');
+    return;
+  }
+
+  if (!a1 || !a2) {
+    sqError.textContent = 'Please provide answers to both questions.';
+    show('sqError');
+    return;
+  }
+
+  if (a1.length < 2 || a2.length < 2) {
+    sqError.textContent = 'Answers must be at least 2 characters.';
+    show('sqError');
+    return;
+  }
+
+  const salt1 = generateSalt();
+  const salt2 = generateSalt();
+  const hash1 = await hashAnswer(a1, salt1);
+  const hash2 = await hashAnswer(a2, salt2);
+
+  const securityQuestions = [
+    { questionId: q1, answerHash: hash1, answerSalt: salt1 },
+    { questionId: q2, answerHash: hash2, answerSalt: salt2 },
+  ];
+
+  await chrome.storage.local.set({ securityQuestions });
+
+  document.getElementById('sq1Answer').value = '';
+  document.getElementById('sq2Answer').value = '';
+  sqSaved.innerHTML = '<span class="sq-badge set">Security questions saved!</span>';
+  show('sqSaved');
+  hide('sqError');
 }
 
 function flashSuccess() {
