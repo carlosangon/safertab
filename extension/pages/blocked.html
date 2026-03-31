@@ -27,6 +27,12 @@
       backdrop-filter: blur(12px);
     }
 
+    .blocked-logo-img {
+      height: 72px;
+      width: auto;
+      margin-bottom: 24px;
+      display: block;
+    }
     .shield {
       font-size: 72px;
       margin-bottom: 24px;
@@ -103,7 +109,7 @@
 </head>
 <body>
   <div class="card">
-    <span class="shield" id="emoji">🛡️</span>
+    <img src="../icons/logo_color_white.png" alt="SaferTab" class="blocked-logo-img" />
     <h1 id="title">Page Blocked</h1>
     <p class="subtitle" id="message">This website has been blocked by SaferTab.</p>
     <div class="reason-badge" id="badge">Blocked</div>

@@ -29,6 +29,7 @@ html, body {
 }
 
 .lock-icon { font-size: 48px; margin-bottom: 16px; }
+.lock-logo-img { height: 48px; width: auto; margin-bottom: 16px; }
 .lock-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
 .lock-card p  { color: #94a3b8; margin-bottom: 24px; }
 
@@ -46,6 +47,7 @@ header {
 .header-right { display: flex; align-items: center; gap: 8px; }
 .logo { font-size: 20px; }
 .app-name { font-weight: 700; font-size: 15px; color: #f1f5f9; }
+.header-logo-img { height: 22px; width: auto; }
 
 .icon-btn {
   background: none;

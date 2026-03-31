@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy - SaferTab</title>
+  <meta name="description" content="SaferTab Privacy Policy. Learn how SaferTab protects your family's data — all information stays local on your device." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="../extension/icons/icon48.png" type="image/png" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZVJ25667QB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZVJ25667QB');
+  </script>
+  <style>
+    .policy-page {
+      padding: 8rem 0 4rem;
+      min-height: 80vh;
+    }
+    .policy-page h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .policy-date {
+      color: var(--text-muted, #888);
+      font-size: 0.95rem;
+      margin-bottom: 3rem;
+    }
+    .policy-section {
+      margin-bottom: 2.5rem;
+    }
+    .policy-section h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+    }
+    .policy-section p,
+    .policy-section li {
+      line-height: 1.75;
+      color: var(--text-secondary, #ccc);
+    }
+    .policy-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    .policy-section ul li {
+      padding: 0.35rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .policy-section ul li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      color: var(--primary, #6c5ce7);
+      font-weight: bold;
+    }
+    .permissions-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+    .permissions-table th,
+    .permissions-table td {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-secondary, #ccc);
+      line-height: 1.6;
+    }
+    .permissions-table th {
+      color: var(--text-primary, #fff);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .permissions-table code {
+      background: rgba(108,92,231,0.15);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="images/logo_color.png" alt="SaferTab" class="nav-logo-img" />
+      </a>
+      <button class="hamburger" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#how-it-works">How It Works</a></li>
+        <li><a href="index.html#privacy">Privacy</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="index.html#cta" class="nav-cta">Add to Chrome</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Privacy Policy ── -->
+  <section class="policy-page">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p class="policy-date">Effective date: March 31, 2026</p>
+
+      <div class="policy-section">
+        <h2>Overview</h2>
+        <p>
+          SaferTab is a Chrome extension that provides parental controls for child web safety.
+          It is designed with a simple privacy principle: <strong>your data never leaves your device</strong>.
+          There are no accounts, no servers, and no data collection. Everything the extension stores
+          lives in your browser's local storage and is never transmitted anywhere.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>What Data the Extension Collects</h2>
+        <p>
+          SaferTab does not collect, transmit, or share any personal data. The extension does not
+          communicate with any external servers. There is no telemetry, no analytics, and no
+          crash reporting built into the extension.
+        </p>
+        <p>
+          The extension stores the following information <strong>locally on your device only</strong>,
+          using Chrome's built-in <code>chrome.storage.local</code> API:
+        </p>
+        <ul>
+          <li>Child profile names and their individual settings (blocklists, allowlists, time limits, schedules)</li>
+          <li>Browsing history logs for monitored profiles</li>
+          <li>Daily usage statistics (minutes browsed, sites visited, sites blocked)</li>
+          <li>Parent password hash and salt (the password itself is never stored)</li>
+        </ul>
+      </div>
+
+      <div class="policy-section">
+        <h2>How Data Is Stored and Protected</h2>
+        <p>
+          All data stored by SaferTab remains on your local device and is protected using
+          industry-standard cryptographic methods via the Web Crypto API:
+        </p>
+        <ul>
+          <li>Browsing history is encrypted using <strong>AES-GCM</strong> (256-bit) encryption</li>
+          <li>Encryption keys are derived using <strong>PBKDF2</strong> key derivation</li>
+          <li>The parent password is hashed with <strong>SHA-256</strong> and a unique random salt &mdash; the plain-text password is never stored</li>
+        </ul>
+        <p>
+          Since no data is transmitted to external servers, there is no risk of server-side data
+          breaches. Uninstalling the extension removes all stored data from your browser.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Extension Permissions</h2>
+        <p>
+          SaferTab requests the following Chrome permissions, each required for specific functionality:
+        </p>
+        <table class="permissions-table">
+          <thead>
+            <tr>
+              <th>Permission</th>
+              <th>Why It's Needed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>storage</code></td>
+              <td>Store profiles, settings, browsing history, and usage data locally on your device.</td>
+            </tr>
+            <tr>
+              <td><code>tabs</code></td>
+              <td>Read the current tab's URL to enforce blocklists, allowlists, and time limits.</td>
+            </tr>
+            <tr>
+              <td><code>webNavigation</code></td>
+              <td>Detect page navigations to track browsing history and enforce blocking rules before pages load.</td>
+            </tr>
+            <tr>
+              <td><code>declarativeNetRequest</code></td>
+              <td>Block requests to adult content domains and blocklisted sites at the network level.</td>
+            </tr>
+            <tr>
+              <td><code>declarativeNetRequestFeedback</code></td>
+              <td>Provide feedback on which requests were blocked, used for the blocked-sites counter on the dashboard.</td>
+            </tr>
+            <tr>
+              <td><code>alarms</code></td>
+              <td>Run periodic checks (e.g., updating daily usage counters) without keeping a background page open.</td>
+            </tr>
+            <tr>
+              <td><code>host_permissions: &lt;all_urls&gt;</code></td>
+              <td>Required to monitor and block websites across all domains. Without this, the extension could not enforce parental controls on arbitrary sites.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="policy-section">
+        <h2>Third Parties</h2>
+        <p>
+          The SaferTab extension does not integrate with, send data to, or receive data from any
+          third-party services. There are no ads, no affiliate links, and no third-party SDKs
+          embedded in the extension.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Website Analytics</h2>
+        <p>
+          This marketing website (safertab.com) uses <strong>Google Analytics</strong>
+          (measurement ID: G-ZVJ25667QB) to understand general website traffic, such as page
+          views and visitor counts. This analytics tracking applies <strong>only to this website</strong>
+          and is completely separate from the Chrome extension. The extension itself contains
+          no analytics or tracking code of any kind.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Children's Privacy</h2>
+        <p>
+          SaferTab is a tool designed for <strong>parents and guardians</strong> to manage their
+          children's browsing experience. The extension is installed and configured by an adult,
+          and all settings are protected behind a parent password.
+        </p>
+        <p>
+          SaferTab does not knowingly collect personal information from children. In compliance with
+          the Children's Online Privacy Protection Act (COPPA), the extension is operated and
+          controlled entirely by a parent or guardian. No data from any user &mdash; child or adult
+          &mdash; is ever transmitted off the device.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Changes to This Policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time. Any changes will be reflected on this
+          page with a revised effective date. We encourage you to review this page periodically.
+        </p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Contact</h2>
+        <p>
+          If you have questions about this Privacy Policy or the SaferTab extension, please contact
+          us at <a href="mailto:privacy@safertab.com">privacy@safertab.com</a>.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand"><img src="images/logo_color.png" alt="SaferTab" class="footer-logo-img" /></div>
+      <p class="footer-tagline">Keeping your family safe online.</p>
+      <p class="footer-copy">&copy; 2026 SaferTab. All rights reserved. &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="support.html">Support</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support - SaferTab</title>
+  <meta name="description" content="Get help with SaferTab. Find answers to common questions, troubleshooting tips, and contact support." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="../extension/icons/icon48.png" type="image/png" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZVJ25667QB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZVJ25667QB');
+  </script>
+  <style>
+    .support-page {
+      padding: 8rem 0 4rem;
+      min-height: 80vh;
+    }
+    .support-page h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .support-intro {
+      color: var(--text-muted, #888);
+      font-size: 1.05rem;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+    .support-section {
+      margin-bottom: 2.5rem;
+    }
+    .support-section h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+    }
+    .support-section p,
+    .support-section li {
+      line-height: 1.75;
+      color: var(--text-secondary, #ccc);
+    }
+    .support-section ol {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+    .support-section ol li {
+      padding: 0.35rem 0;
+    }
+    .troubleshoot-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .troubleshoot-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .troubleshoot-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+    .troubleshoot-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary, #ccc);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .contact-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .contact-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .contact-card p {
+      color: var(--text-secondary, #ccc);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .contact-card a {
+      color: var(--primary, #6c5ce7);
+      font-weight: 600;
+    }
+    @media (max-width: 600px) {
+      .support-page h1 { font-size: 1.8rem; }
+      .contact-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="images/logo_color.png" alt="SaferTab" class="nav-logo-img" />
+      </a>
+      <button class="hamburger" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#how-it-works">How It Works</a></li>
+        <li><a href="index.html#privacy">Privacy</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="index.html#cta" class="nav-cta">Add to Chrome</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Support ── -->
+  <section class="support-page">
+    <div class="container">
+      <h1>Support</h1>
+      <p class="support-intro">Need help with SaferTab? Find answers below or reach out to us directly.</p>
+
+      <div class="support-section">
+        <h2>Getting Started</h2>
+        <ol>
+          <li>Install SaferTab from the <a href="#">Chrome Web Store</a>.</li>
+          <li>Click the SaferTab icon in your browser toolbar.</li>
+          <li>Create a parent password when prompted.</li>
+          <li>Add a child profile and configure blocklists, time limits, and schedules.</li>
+          <li>SaferTab runs automatically in the background &mdash; no further setup needed.</li>
+        </ol>
+      </div>
+
+      <div class="support-section">
+        <h2>Troubleshooting</h2>
+        <div class="troubleshoot-grid">
+          <div class="troubleshoot-card">
+            <h3>Extension icon is grayed out</h3>
+            <p>Make sure the extension is enabled. Go to <strong>chrome://extensions</strong>, find SaferTab, and toggle it on. If you just installed it, try refreshing the page.</p>
+          </div>
+          <div class="troubleshoot-card">
+            <h3>Sites aren't being blocked</h3>
+            <p>Check that you have an active child profile with a blocklist or the adult content filter enabled. Open SaferTab, unlock with your password, and verify the profile's settings. Rules update automatically after saving.</p>
+          </div>
+          <div class="troubleshoot-card">
+            <h3>Forgot your parent password</h3>
+            <p>Click "Forgot password?" on the lock screen. You'll need to reset the extension, which clears all profiles and settings. This is a security measure &mdash; passwords are hashed and cannot be recovered.</p>
+          </div>
+          <div class="troubleshoot-card">
+            <h3>Time limits not working</h3>
+            <p>Ensure a daily time limit is set for the active profile. SaferTab tracks browsing time in the background using Chrome alarms. If the browser was closed and reopened, the timer continues from where it left off for that day.</p>
+          </div>
+          <div class="troubleshoot-card">
+            <h3>Browsing history not showing</h3>
+            <p>History is recorded only while a child profile is active. If you just set up a profile, history will appear after the child visits their first site. History is encrypted and can only be viewed after unlocking with your parent password.</p>
+          </div>
+          <div class="troubleshoot-card">
+            <h3>Extension not working after Chrome update</h3>
+            <p>Occasionally, Chrome updates may require extensions to reload. Go to <strong>chrome://extensions</strong> and click the reload button on SaferTab. Your data and settings are preserved.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="support-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="troubleshoot-grid">
+          <div class="troubleshoot-card">
+            <h3>Is my data sent anywhere?</h3>
+            <p>No. All data stays on your device in Chrome's local storage. SaferTab has no servers and makes no network requests. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+          </div>
+          <div class="troubleshoot-card">
+            <h3>Can my child uninstall SaferTab?</h3>
+            <p>They would need access to <strong>chrome://extensions</strong> to remove it. You can restrict this by setting up a supervised Chrome profile for your child through Google Family Link.</p>
+          </div>
+          <div class="troubleshoot-card">
+            <h3>Does SaferTab work in Incognito mode?</h3>
+            <p>By default, extensions are disabled in Incognito. You can enable SaferTab for Incognito windows in <strong>chrome://extensions</strong> &gt; SaferTab &gt; Details &gt; "Allow in Incognito."</p>
+          </div>
+          <div class="troubleshoot-card">
+            <h3>Can I use SaferTab on multiple computers?</h3>
+            <p>Yes, but each installation is independent. Profiles and settings do not sync between devices since all data is stored locally.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <h2>Still Need Help?</h2>
+        <p>We're here for you. Send us an email and we'll get back to you as soon as possible.</p>
+        <a href="mailto:support@safertab.com">support@safertab.com</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand"><img src="images/logo_color.png" alt="SaferTab" class="footer-logo-img" /></div>
+      <p class="footer-tagline">Keeping your family safe online.</p>
+      <p class="footer-copy">&copy; 2026 SaferTab. All rights reserved. &middot; <a href="privacy.html">Privacy Policy</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+============================================================
+SAFERTAB — CHROME WEB STORE LISTING
+============================================================
+
+
+SHORT DESCRIPTION (132 characters max)
+------------------------------------------------------------
+Free parental controls: block sites, filter content, set time limits, and track browsing history. No account needed. 100% local data.
+
+
+DETAILED DESCRIPTION
+------------------------------------------------------------
+SaferTab gives parents a simple, private way to manage their children's web browsing directly in Chrome. It is completely free, requires no account or sign-up, and keeps all data on your device. Nothing is ever sent to external servers.
+
+Set it up in under a minute. Open the extension, create a password, add a child profile, and start configuring rules. There is no software to install beyond the extension itself.
+
+
+FEATURE HIGHLIGHTS
+
+Track and Search Browsing History
+SaferTab records every site your child visits and lets you search through their browsing history at any time. All history entries are encrypted on your device using AES-GCM encryption, so the data is protected even if someone accesses the browser's local storage directly.
+
+Block Websites
+Add specific websites to a blocklist to prevent your child from visiting them. When they try to navigate to a blocked site, they see a friendly block page instead. You can also switch to allowlist-only mode, where only the sites you explicitly approve are accessible and everything else is blocked.
+
+Filter Adult Content
+SaferTab includes a built-in content filter that uses keyword-based domain matching to detect and block adult websites automatically. This works alongside your manual blocklist to provide an extra layer of protection.
+
+Daily Browsing Time Limits
+Set a maximum amount of browsing time per day for each child. SaferTab tracks usage down to the minute and displays remaining time on the dashboard. When the daily limit is reached, browsing is paused until the next day.
+
+Time-Based Schedules
+Control when your child can browse by setting allowed hours for each day of the week. Outside of scheduled hours, browsing is blocked automatically.
+
+Password-Protected Settings
+All parental settings are locked behind a password that only you know. The password is hashed using SHA-256 with a unique salt, so it cannot be recovered from stored data. Your child cannot change settings, disable the extension's rules, or view the configuration without the password.
+
+Multiple Child Profiles
+Create separate profiles for each of your children. Every profile has its own independent blocklist, allowlist, content filter settings, time limits, schedules, and browsing history. Switch between profiles easily from the extension popup.
+
+
+PRIVACY AND SECURITY
+
+SaferTab was built with privacy as a core principle:
+
+- No account required. There is no sign-up, no email collection, and no user tracking.
+- All data stays on your device. Browsing history, settings, and profile data are stored locally using Chrome's built-in storage. Nothing is transmitted to any server.
+- Browsing history is encrypted. History entries are encrypted with AES-GCM before being stored, using a key derived from your password via PBKDF2.
+- No external dependencies. SaferTab is built entirely with plain JavaScript and Chrome's built-in APIs. There are no third-party libraries, analytics scripts, or network requests.
+- Open and transparent. The extension does exactly what it says and nothing more.
+
+
+HOW TO GET STARTED
+
+1. Install SaferTab from the Chrome Web Store.
+2. Click the SaferTab icon in your toolbar.
+3. Set a parent password.
+4. Create a profile for your child.
+5. Configure blocklists, time limits, and schedules.
+
+That is it. SaferTab starts working immediately.
+
+
+SaferTab is and will always be free. No premium tiers, no ads, no in-app purchases.
+
+
+CATEGORY RECOMMENDATION
+------------------------------------------------------------
+Category: Productivity
+
+(Note: Chrome Web Store does not have a dedicated "Parental Controls" or "Family" category. "Productivity" is the most commonly used category for parental control and web filtering extensions.)
+
+
+PERMISSIONS JUSTIFICATION
+------------------------------------------------------------
+The following justifications explain why each permission is required. These are written for the Chrome Web Store review process.
+
+storage
+SaferTab uses chrome.storage.local to save all extension data on the user's device, including child profiles, blocklists, allowlists, time limit settings, schedule configurations, encrypted browsing history, and the hashed parent password. This is the only data persistence mechanism the extension uses.
+
+tabs
+SaferTab uses the tabs permission to read the URL and title of the active tab. This information is needed to record browsing history entries for each child profile, to display the current site on the dashboard, and to determine whether the active site is on the blocklist or allowlist.
+
+webNavigation
+SaferTab uses webNavigation.onBeforeNavigate to intercept page navigations before they complete. This allows the extension to check whether a destination URL is blocked by the active profile's blocklist, content filter, or allowlist rules, and to redirect the browser to a block page when necessary. It is also used to track browsing time accurately by detecting when a child navigates to a new site.
+
+declarativeNetRequest
+SaferTab uses declarativeNetRequest to create and manage URL blocking and redirect rules. Blocked domains (from the blocklist, content filter, and allowlist enforcement) are translated into declarativeNetRequest rules that redirect matching requests to the extension's block page. This API is the Manifest V3 replacement for webRequest blocking and is the recommended approach for content filtering extensions.
+
+declarativeNetRequestFeedback
+SaferTab uses declarativeNetRequestFeedback to receive notifications when a declarativeNetRequest rule matches a navigation. This feedback is used to log blocked site attempts in the child's browsing history, so parents can see which sites their child tried to visit and were blocked. Without this permission, the extension would have no way to know when its blocking rules were triggered.
+
+alarms
+SaferTab uses chrome.alarms to run periodic background tasks in the Manifest V3 service worker. Alarms are used to track active browsing time against the daily time limit for each child profile (checking usage at regular intervals) and to enforce time-based browsing schedules by enabling or disabling blocking rules when scheduled hours begin or end.
+
+host_permissions: <all_urls>
+SaferTab requires access to all URLs because parental controls must be able to monitor and block any website a child might visit. The extension cannot predict which domains a child will navigate to, so it needs broad host access to intercept navigations to any site, apply blocklist and content filter rules against any domain, record browsing history for any visited URL, and enforce allowlist-only mode where all unlisted sites are blocked. No data from these pages is collected beyond the URL and page title, and no data is sent externally.
