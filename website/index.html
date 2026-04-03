@@ -5,8 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SaferTab - Keep Your Family Safe Online</title>
   <meta name="description" content="A lightweight Chrome extension that gives parents real control over what their kids see and how long they browse. Free, private, no account needed." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://safertab.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SaferTab" />
+  <meta property="og:title" content="SaferTab - Keep Your Family Safe Online" />
+  <meta property="og:description" content="A lightweight Chrome extension that gives parents real control over what their kids see and how long they browse. Free, private, no account needed." />
+  <meta property="og:url" content="https://safertab.com/" />
+  <meta property="og:image" content="https://safertab.com/images/logo_color.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SaferTab - Keep Your Family Safe Online" />
+  <meta name="twitter:description" content="A lightweight Chrome extension that gives parents real control over what their kids see and how long they browse. Free, private, no account needed." />
+  <meta name="twitter:image" content="https://safertab.com/images/logo_color.png" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="../extension/icons/icon48.png" type="image/png" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "SaferTab",
+      "applicationCategory": "BrowserApplication",
+      "operatingSystem": "ChromeOS, Windows, macOS, Linux",
+      "description": "SaferTab is a Chrome extension that helps parents block websites, filter adult content, and manage daily browsing time limits.",
+      "url": "https://safertab.com/",
+      "image": "https://safertab.com/images/logo_color.png",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "SaferTab",
+        "url": "https://safertab.com/"
+      }
+    }
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZVJ25667QB"></script>
   <script>
@@ -21,7 +55,7 @@
   <!-- ── Navigation ── -->
   <nav id="navbar">
     <div class="nav-inner">
-      <a href="#" class="nav-brand">
+      <a href="/" class="nav-brand">
         <img src="images/logo_color.png" alt="SaferTab" class="nav-logo-img" />
         <!-- <img src="images/logo_color_white.png" alt="SaferTab" class="nav-logo-img" /> -->
       </a>
@@ -33,6 +67,7 @@
         <li><a href="#how-it-works">How It Works</a></li>
         <li><a href="#privacy">Privacy</a></li>
         <li><a href="#faq">FAQ</a></li>
+        <li><a href="support.html">Support</a></li>
         <li><a href="#cta" class="nav-cta">Add to Chrome</a></li>
       </ul>
     </div>

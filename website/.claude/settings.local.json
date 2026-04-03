@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp /Users/ca/Apps/safertab/website/images/logo_color.png /Users/ca/Apps/safertab/extension/icons/logo_color.png)",
+      "Bash(cp /Users/ca/Apps/safertab/website/images/logo_color_white.png /Users/ca/Apps/safertab/extension/icons/logo_color_white.png)",
+      "Read(//Users/ca/Apps/safertab/**)",
+      "Bash(zip -r safertab-extension.zip extension/ -x \"extension/.DS_Store\" \"extension/**/.DS_Store\")",
+      "Bash(unzip -l safertab-extension.zip)"
+    ]
+  }
+}
